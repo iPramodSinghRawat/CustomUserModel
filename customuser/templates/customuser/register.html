@@ -1,0 +1,19 @@
+{% extends './base.html' %}
+{% block content %}
+    <h1>New Registration</h1>
+    {% if form %}
+    <form method="POST" class="post-form"> <!--enctype="multipart/form-data"-->
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit" class="save btn btn-default">Submit</button>
+        <script>
+        $( function() {
+          $( "#id_birth_date" ).datepicker();
+        } );
+        </script>
+    </form>
+    {% else %}
+      {{ formresponse }}
+    {% endif %}
+
+{% endblock %}

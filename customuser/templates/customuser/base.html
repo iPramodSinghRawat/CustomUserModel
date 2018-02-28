@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>CustomUserModel-{{ page_title }}</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </head>
+    <body>
+    <div class="page-header">
+      <h1><a href="/">dJango Custom User Model</a></h1>
+      <div class="row">
+        <div class="col-md-12" style="text-align:right;">
+        {% if user.is_authenticated %}
+        <a href="/profile">Profile</a> | <a href="/logout">LogOut</a>
+        {% else %}
+        <a href="/login">Login </a> | <a href="/register"> Register </a>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+  </body>
+    </body>
+</html>

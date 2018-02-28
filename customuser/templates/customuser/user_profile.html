@@ -1,0 +1,84 @@
+{% extends './base.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <!--br><p>First Name: {{ user_data.first_name }}</p>
+    <br><p>Last Name: {{ user_data.last_name }}</p>
+    <br><p>eMail: {{ user_data.email }}</p>
+    <br><p>User Type: {{ user_data.user_type }}</p>
+    <br><p>Bio: {{ user_data.bio }}</p-->
+    {% if form %}
+    <form class="form-horizontal" method="POST" class="post-form" enctype="multipart/form-data"> <!--enctype="multipart/form-data"-->
+        <div class="form-group">
+          <label for="{{ form.first_name.id_for_label}}">First Name:</label>
+          <input type="text" class="form-control" id="{{ form.first_name.id_for_label}}" name="{{ form.first_name.name}}" value="{{ form.first_name.value}}">
+        </div>
+        <div class="form-group">
+          <label for="{{ form.last_name.id_for_label}}">Last Name:</label>
+          <input type="text" class="form-control" id="{{ form.last_name.id_for_label}}" name="{{ form.last_name.name}}" value="{{ form.last_name.value}}">
+        </div>
+        <!--div class="form-group">
+          <label for="{{ form.email.id_for_label}}">eMail:</label>
+          <input type="email" readonly class="form-control" id="{{ form.email.id_for_label}}" name="{{ form.email.name}}" value="{{ form.email.value}}">
+        </div-->
+        <div class="form-group">
+          <label for="{{ form.birth_date.id_for_label}}">Birth Date:</label>
+          <input type="date" class="form-control" id="{{ form.birth_date.id_for_label}}" name="{{ form.birth_date.name}}" value="{{ form.birth_date.value }}">
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.avatar.id_for_label}}">Avatar:</label>
+            <br/>
+            Currently: <img src="/media/{{ form.avatar.value }}" alt="uimage" style="width:100px;">
+            <br><a href="/media/{{ form.avatar.value }}">{{ form.avatar.value }}</a>
+            <br><label for="avatar-clear_id">Clear</label> <input type="checkbox" name="avatar-clear" id="avatar-clear_id" />
+            <br />
+            Change:
+            <input class="form-control" type="file" name="{{ form.avatar.name }}" id="{{ form.avatar.id_for_label}}" /></td></tr>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.bio.id_for_label}}">Bio:</label>
+          <textarea class="form-control" id="{{ form.bio.id_for_label}}" name="{{ form.bio.name}}">{{ form.bio.value }}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="{{ form.location.id_for_label}}">Location:</label>
+          <input type="text" class="form-control" id="{{ form.location.id_for_label}}" name="{{ form.location.name}}" value="{{ form.location.value}}">
+        </div>
+        {% csrf_token %}
+        <button type="submit" name="update_user_profile" class="save btn btn-default">Submit</button>
+        <script>
+        $( function() {
+          $( "#id_birth_date" ).datepicker();
+        } );
+        </script>
+        {{ formresponse }}
+    </form>
+    {% else %}
+      {{ formresponse }}
+    {% endif %}
+
+    {% if password_form %}
+    <br/><br/>
+    <h4>Change Password</h4>
+    <form class="form-horizontal" method="POST" class="post-form">
+      <input type="hidden" name="{{ password_form.uid.name }}" id="{{ password_form.uid.id_for_label }}" value="{{ password_form.uid.value }}">
+      <div class="form-group">
+        <label for="id_password">Password:</label>
+        <input class="form-control" type="password" name="{{ password_form.password.name }}" autocomplete="off" required id="{{ password_form.password.id_for_label }}" /></p>
+      </div>
+      <div class="form-group">
+        <label for="id_password2">Confirm password:</label>
+        <input class="form-control" type="password" name="{{ password_form.password2.name }}" required id="{{ password_form.password2.id_for_label }}" /></p>
+      </div>
+      {% csrf_token %}
+      <button type="submit" name="update_user_password" class="save btn btn-default">Submit</button>
+    </form>
+      {{ formresponse2 }}
+    {% else %}
+      {{ formresponse2 }}
+    {% endif %}
+
+  {% else %}
+  <a href="/login">Login </a> | <a href="/register"> Register </a>
+  {% endif %}
+{% endblock %}

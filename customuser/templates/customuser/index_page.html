@@ -1,0 +1,14 @@
+{% extends './base.html' %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <h4>Welcome User</h4><br/>
+    <p>Name: {{ user_data.get_full_name }}</p>
+    <p>Date Joined: {{ user_data.get_date_joined }}</p>
+    <p>eMail: {{ user_data.email }}</p>
+    <p>User Type: {{ user_data.user_type }}</p>
+    <p>Bio: {{ user_data.bio }}</p>
+    <p>Location: {{ user_data.location }}</p>
+  {% else %}
+  <a href="/login">Login </a> | <a href="/register"> Register </a>
+  {% endif %}
+{% endblock %}
